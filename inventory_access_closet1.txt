@@ -1,0 +1,5 @@
+N-CoreA-01-Core 10.10.1.1 Core Switch
+AC1-SW1        10.10.1.3 Access Switch
+AC1-SW2        10.10.1.4 Access Switch
+AC1-SW3        10.10.1.5 Access Switch
+AC1-SW4        10.10.1.6 Access Switch
