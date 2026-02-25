@@ -1,93 +1,219 @@
-# Vlans
+VLAN Network Automation Project
 
+Repository: https://gitlab.com/firstclues-group/vlans.git
 
+Platform: GitLab
+Lab Environment: Cisco DevNet Sandbox (IOS-XE)
 
-## Getting started
+1. Executive Summary
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This project delivers a complete end-to-end VLAN automation solution using Python and Ansible against a live Cisco DevNet Sandbox IOS-XE device.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+2. Project Goals (All Achieved)
 
-## Add your files
+✔ Automate VLAN creation
+✔ Perform pre-deployment validation checks
+✔ Configure trunk interfaces programmatically
+✔ Verify VLAN state before and after deployment
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+3. Technical Architecture
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/firstclues-group/vlans.git
-git branch -M main
-git push -uf origin main
-```
+Environment Components:
 
-## Integrate with your tools
+WSL Ubuntu 22.04
 
-* [Set up project integrations](https://gitlab.com/firstclues-group/vlans/-/settings/integrations)
+Python 3 (virtual environment)
 
-## Collaborate with your team
+Netmiko (SSH automation)
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+Ansible
 
-## Test and Deploy
+Cisco DevNet Sandbox IOS-XE switch
 
-Use the built-in continuous integration in GitLab.
+Git-based repository hosted on GitLab
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+Automation Flow:
 
-***
+Inventory → SSH Connection → Validation → Deployment → Verification → User Automation → Documentation
 
-# Editing this README
+4. File Structure & Purpose
+Python Automation Scripts
+File	Purpose
+check_vlans.py	Baseline VLAN verification
+auto_checks.py	Pre-deployment validation
+auto.py	Core automation logic
+auto_dynamic.py	Dynamic VLAN automation
+auto_dynamic2.py	Extended dynamic logic
+vlan_deploy.py	VLAN deployment execution
+trunk.py	Trunk interface configuration
+check_v.py	VLAN verification helper
+Ansible Automation
+File	Purpose
+switch_users.yml	Switch user provisioning
+windows_users.yml	Windows user automation (if required)
+Inventory & Configuration
+File	Purpose
+inventory.ini	DevNet Sandbox device definition
+test.ini	Testing inventory
+inventory_access_closet1.txt	Device reference
+requirements.txt	Python dependencies
+5. Installation & Setup
+sudo apt update
+sudo apt install python3 python3-venv python3-pip -y
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+sudo apt install ansible -y
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+6. Execution Order (Strict Demonstration Flow)
 
-## Suggestions for a good README
+Follow this exact order in both testing and Panopto presentation.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+STEP 1 – Baseline VLAN Check
+python3 check_vlans.py
 
-## Name
-Choose a self-explaining name for your project.
+📸 Screenshot Required:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Terminal output showing existing VLAN list before changes.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Purpose:
+Establish initial network state.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+STEP 2 – Pre-Deployment Validation
+python3 auto_checks.py
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+📸 Screenshot Required:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Successful SSH connection
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Validation results
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Purpose:
+Confirms connectivity and configuration readiness.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+STEP 3 – VLAN Deployment
+python3 vlan_deploy.py
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+📸 Screenshot Required:
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+VLAN creation commands
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Success confirmation output
 
-## License
-For open source projects, say how it is licensed.
+Purpose:
+Implements required VLAN configuration.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+STEP 4 – Dynamic Automation
+python3 auto_dynamic.py
+python3 auto_dynamic2.py
+
+📸 Screenshot Required:
+
+Dynamic logic execution
+
+Confirmation output
+
+Purpose:
+Demonstrates scalability and reusable automation logic.
+
+STEP 5 – Trunk Configuration
+python3 trunk.py
+
+📸 Screenshot Required:
+
+Trunk configuration commands
+
+Interface trunk confirmation
+
+Purpose:
+Ensures VLAN traffic transport across interfaces.
+
+STEP 6 – Post-Deployment Verification
+python3 check_vlans.py
+
+📸 Screenshot Required:
+
+VLAN list showing newly created VLANs
+
+Purpose:
+Validates successful implementation.
+
+STEP 7 – Ansible User Deployment
+ansible-playbook -i inventory.ini switch_users.yml
+
+📸 Screenshot Required:
+
+Playbook execution summary
+
+“changed” status confirmation
+
+Purpose:
+Automates switch user provisioning.
+
+7. Required Screenshots Checklist
+
+✔ Initial VLAN state
+✔ Pre-check validation output
+✔ VLAN deployment output
+✔ Dynamic automation execution
+✔ Trunk configuration confirmation
+✔ Post-deployment VLAN verification
+✔ Ansible playbook summary
+✔ GitLab repository showing committed files
+✔ inventory.ini file
+✔ requirements.txt file
+✔ Successful SSH connection to DevNet
+
+Every execution stage must have visual proof in Panopto.
+
+8. Panopto Presentation Structure
+
+Slide 1 – Problem Statement
+Manual VLAN configuration is inefficient and error-prone.
+
+Slide 2 – Project Objective
+Explain automation goals and Infrastructure-as-Code.
+
+Slide 3 – Architecture Diagram
+Show WSL → Python → Ansible → Cisco DevNet Sandbox → GitLab.
+
+Slide 4 – Live Execution Demo
+Run scripts in required order.
+Explain each output clearly.
+
+Slide 5 – Validation & Results
+Show before/after VLAN state.
+
+Slide 6 – Version Control
+Show GitLab repository structure.
+
+Slide 7 – Business Impact
+
+Reduced configuration time
+
+Increased consistency
+
+Reduced human error
+
+Scalable deployment model
+
+Slide 8 – Conclusion
+Project objectives met successfully.
+
+9. Troubleshooting Guide
+Problem	Resolution
+SSH authentication failure	Verify DevNet credentials
+Module import error	pip install -r requirements.txt
+ansible-playbook not found	Install Ansible
+Permission denied	Use sudo
+Script fails	Check inventory.ini configuration
+10. Final Outcome
+
+This project successfully demonstrates:
+
+✔ Real-world automation against Cisco DevNet Sandbox
+✔ Full VLAN lifecycle management
+✔ Dynamic configuration scripting
+✔ Infrastructure-as-Code principles
+✔ Hybrid Python + Ansible automation
+✔ Proper validation before and after deployment
