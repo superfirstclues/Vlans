@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+                 
 VLAN Network Automation Project
 
 Repository: https://gitlab.com/firstclues-group/vlans.git
