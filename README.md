@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 VLAN Network Automation Project
 
 Repository: https://gitlab.com/firstclues-group/vlans.git
@@ -217,3 +218,7 @@ This project successfully demonstrates:
 ✔ Infrastructure-as-Code principles
 ✔ Hybrid Python + Ansible automation
 ✔ Proper validation before and after deployment
+=======
+# Vlans
+Virtual network automation
+>>>>>>> 2680d1e787d57fb3eab4a98c37c70c15b9729c70
